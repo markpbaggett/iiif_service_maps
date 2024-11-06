@@ -49,12 +49,13 @@ class ManifestGenerator:
             metadata=self.metadata,
             rights=self.rights,
         )
+        i = 1
         for image in self.images:
-            i = 1
             thumbnail = self.__get_thumbnail(image)
             manifest.make_canvas_from_iiif(
                 url=image,
                 thumbnail=thumbnail,
+                label=f"Canvas {i}",
                 id=f"{self.manifest_url.replace('.json', '')}/canvas/{i}",
                 anno_id=f"{self.manifest_url.replace('.json', '')}/canvas/{i}/annotation/{i}",
                 anno_page_id=f"{self.manifest_url.replace('.json', '')}/canvas/{i}/annotation/{i}/page/{i}",
