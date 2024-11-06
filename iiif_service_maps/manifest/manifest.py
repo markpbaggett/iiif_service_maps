@@ -56,8 +56,8 @@ class ManifestGenerator:
                 url=image,
                 thumbnail=thumbnail,
                 id=f"{self.manifest_url.replace('.json', '')}/canvas/{i}",
-                anno_id=f"{self.manifest_url.replace('.json', '')}/canvas/{i}/annotation/1",
-                anno_page_id=f"{self.manifest_url.replace('.json', '')}/canvas/{i}/annotation/1/page/1",
+                anno_id=f"{self.manifest_url.replace('.json', '')}/canvas/{i}/annotation/{i}",
+                anno_page_id=f"{self.manifest_url.replace('.json', '')}/canvas/{i}/annotation/{i}/page/{i}",
             )
             i += 1
         x = manifest.json(indent=2)
@@ -67,7 +67,7 @@ class ManifestGenerator:
     @staticmethod
     def __get_thumbnail(url):
         image_response = httpx.get(f"{url}/info.json", timeout=60).json()
-        size = image_response['sizes'][2]
+        size = image_response['sizes'][4]
         return {
           "id": f"{url}/full/{size['width']},/0/default.jpg",
           "width": size['width'],
