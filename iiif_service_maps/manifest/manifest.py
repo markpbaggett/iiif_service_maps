@@ -19,7 +19,7 @@ class ManifestGenerator:
 
     def __get_base_64_images(self):
         all_images = []
-        filenames = self.csv_row['New Filenames'].split('||')
+        filenames = self.csv_row['New Filenames'].split(' | ')
         work_id = int(self.csv_row['Parent Identifier'].split('_')[-1]) + 1
         i = 0
         for filename in filenames:
@@ -31,13 +31,14 @@ class ManifestGenerator:
 
     def __build_metadata(self):
         metadata = []
-        not_for_metadata = ('Title', 'Scanned', 'New Filenames')
+        not_for_metadata = ('Title', 'Scanned', 'Location')
         for k, v in self.csv_row.items():
             if k not in not_for_metadata and v != "":
+                values = v.split(' | ')
                 metadata.append(
                     KeyValueString(
                         label=k,
-                        value={"en": [v]}
+                        value={"en": values}
                     )
                 )
         return metadata
